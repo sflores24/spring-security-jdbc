@@ -1,0 +1,17 @@
+CREATE TABLE `Users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Users_UN` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `authorities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `authority` varchar(45) NOT NULL COMMENT 'Nombre del rol',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `authorities_user_id_IDX` (`user_id`,`authority`) USING BTREE,
+  CONSTRAINT `authorities_users_FK` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Tabla para roles'
